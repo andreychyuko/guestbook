@@ -1,9 +1,12 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include, re_path
+from django.urls import path, include
 
-urlpatterns = {
-    path(r'', include('main.urls', namespace='main')),
-    path('admin/', admin.site.urls),
-    path(r'test/', include('test.urls', namespace='test')),
 
-}
+urlpatterns = [
+     path('admin/', admin.site.urls),
+    path('', include('news.urls')),
+
+
+]
