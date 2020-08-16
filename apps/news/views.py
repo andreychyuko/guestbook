@@ -27,14 +27,41 @@ class HomeNews(ListView):
     def get_queryset(self):
     #   правим наш запрос , используя метод фильтр и получаем те данные которые нужны
         return News.objects.filter('is_published=True')
-def index(request):
+
+#создаем класс , под клас класса ListView
+class NewsByCategory(ListView):
+    #модель News
+    model = News
+    #используем тот же самый шаблон (отличий нет)
+    template_name = 'news/home_news_list.html'
+    context_object_name = 'news'
+    #специальнй атрибут класса , он по умолчанию тру , показывает пустой список, установив False он запрещает показывать
+    allow_empty=False
+
+
+
+    def get_context_data(self, *, object_list=None,  **kwargs):
+        #определить переменую и взять из нее что дает родитеский метод 
+        context = super().get_context_data(**kwargs)
+        #дополнели нашеми словами
+        context['title'] = Category.objects.get(pk=self.kwargs['category_id'])
+        #возвращаем 
+        return context
+
+
+#метод которому мы привяжем категорию обращаемся в урл параметру
+    def get_queryset(self):
+        return News.objects.filter(category_id=self.kwargs['category_id'], is_published=True)
+
+
+"""def index(request):
     news = News.objects.all()
     context = {
         'news': news,
         'title': 'Список новостей',
 
     }
-    return render(request, template_name='news/index.html', context=context)
+    return render(request, template_name='news/index.html', context=context)"""
 
 def get_category(request, category_id):
     news = News.objects.filter(category_id=category_id)
