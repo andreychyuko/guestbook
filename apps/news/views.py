@@ -1,11 +1,34 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+from django.views.generic import ListView # импортировали класс для работы со списком(задача его вернуть список)
+
 from .models import News, Category
 from .forms import NewsForm
 
+#создаем класс , который будет под классом импортированого класса   
+class HomeNews(ListView):
+#переобпределяем атрибуты все этапы сделает за нас ListView
+    model = News #в атрибует определили модель из которой хотим получить наш список
+    # специльный атрибут данного класса в котором мы указываем путь нужного шаблона
+    template_name = 'news/home_news_list.html'
+    context_object_name = 'news'
+    # словарь
+    extra_context ={'title': 'Новости Империи'}
+    #переопределяем метод
+    def get_context_data(self, *, object_list=None,  **kwargs):
+        #определить переменую и взять из нее что дает родитеский метод 
+        context = super().get_context_data(**kwargs)
+        #дополнели нашеми словами
+        context['title'] = 'Имперский вестник'
+        #возвращаем 
+        return context
+
+        #специальный метод
+    def get_queryset(self):
+    #   правим наш запрос , используя метод фильтр и получаем те данные которые нужны
+        return News.objects.filter('is_published=True')
 def index(request):
     news = News.objects.all()
-
     context = {
         'news': news,
         'title': 'Список новостей',
@@ -29,7 +52,7 @@ def add_news(request):
 
          form = NewsForm(request.POST)
          if form.is_valid():
-            news = News.objects.create(**form.cleaned_data)
+            news = form.save()
             return redirect(news)
     else:
         form = NewsForm()
