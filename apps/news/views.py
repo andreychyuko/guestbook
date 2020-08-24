@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from django.views.generic import ListView # импортировали класс для работы со списком(задача его вернуть список)
+from django.views.generic import ListView, DetailView # импортировали класс для работы со списком(задача его вернуть список)
 
 from .models import News, Category
 from .forms import NewsForm
@@ -43,7 +43,7 @@ class NewsByCategory(ListView):
     def get_context_data(self, *, object_list=None,  **kwargs):
         #определить переменую и взять из нее что дает родитеский метод 
         context = super().get_context_data(**kwargs)
-        #дополнели нашеми словами
+        #дополнели нашеми словами в тайт попадет обьект катерогии
         context['title'] = Category.objects.get(pk=self.kwargs['category_id'])
         #возвращаем 
         return context
@@ -52,6 +52,14 @@ class NewsByCategory(ListView):
 #метод которому мы привяжем категорию обращаемся в урл параметру
     def get_queryset(self):
         return News.objects.filter(category_id=self.kwargs['category_id'], is_published=True)
+
+
+class ViewNews(DetailView):
+    model = News
+    context_object_name = 'news_item'
+    #template_name = 'news/news_detail.html'
+    #pk_url_kwarg = 'news_id'
+
 
 
 """def index(request):

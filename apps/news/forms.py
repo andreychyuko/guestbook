@@ -3,7 +3,6 @@ from .models import News
 import re # импорт регулярных выражений 
 from django.core.exceptions import ValidationError # импорт валидатора обработки ошибок
 
-
 class NewsForm(forms.ModelForm):
     class Meta:
         model=News
