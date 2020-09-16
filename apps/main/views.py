@@ -4,4 +4,6 @@ from django.http import HttpResponseRedirect, Http404, HttpResponse, JsonRespons
 
 
 def hello(request):
-    return JsonResponse({"raf":"imperators"})
+    data = {'hello': '1'}
+    
+    return JsonResponse(data)

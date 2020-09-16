@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>meal</title>
+</head>
+<body>
+    <h1>Твое любимое блюдо?</h1>
+    <ul>
+        {% for meal in meals %}
+            <li>{{ meal|upper }}</li>
+        {% endfor %}
+    </ul>
+    <form method="POST">
+    {% csrf_token %}
+        <input name="text">
+        <button type="submit">Добавить</button>
+    </form>
+</body>
+</html>
