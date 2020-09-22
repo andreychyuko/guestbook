@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load meal_tags %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,15 +8,15 @@
 </head>
 <body>
     <h1>Твое любимое блюдо?</h1>
-    <ul>
-        {% for meal in meals %}
-            <li>{{ meal|upper }}</li>
-        {% endfor %}
-    </ul>
+    
     <form method="POST">
     {% csrf_token %}
-        <input name="text">
+    <label for="meal_food">Твое любимое блюдо?<label>
+    <br>
+        <input id='meal_food', type='title'name="meal_food">
         <button type="submit">Добавить</button>
+        {% for meal in meals %}
+<tr><td>{{ meal.id }}. {{ meal.name|capitalize }}</td></tr><br>
+{% endfor %}
     </form>
 </body>
-</html>

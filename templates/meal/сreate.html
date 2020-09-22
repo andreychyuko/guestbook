@@ -1,0 +1,17 @@
+{% extends "meal/base_meal.html" %}
+{% block title %}
+   Твое любимое блюдо?
+{% endblock title %}
+
+{% block content %}
+<div class="row">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="title">Твое любимое блюдо?</label>
+          <input type="text" class="form-control" name="title" id="title" placeholder="Введите текст">
+        </div>
+        <button type="submit" class="btn btn-primary">Добавить</button>
+    </form>
+</div>
+{% endblock content %}

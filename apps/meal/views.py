@@ -1,14 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Advert
 
 meals = []
 
 def index(request):
-    
-    if request.method == 'POST':
-        meals.append(request.POST.get('text'))
+    food = Advert.objects.all()
+    if request.method == 'POST' and request.POST:
         print(request.POST)
+        meals = Advert(name=request.POST.get('meals'))
+        meals.save()
 
     return render(request, 'meal/index.html', context={
-        'meals': meals
+        'food': food
     })
+
+
