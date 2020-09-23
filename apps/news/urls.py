@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import *
+from .views import HomeNews, NewsByCategory, ViewNews, CreateNews
 
 urlpatterns = [
     #path('', index, name='home'), 

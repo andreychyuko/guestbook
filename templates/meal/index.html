@@ -11,12 +11,15 @@
     
     <form method="POST">
     {% csrf_token %}
-    <label for="meal_food">Твое любимое блюдо?<label>
+    <label for="my_meals">Твое любимое блюдо?<label>
     <br>
-        <input id='meal_food', type='title'name="meal_food">
+        <input id='my_meals', type='text', name="my_meals">
         <button type="submit">Добавить</button>
+        </form>
+        <ol>
         {% for meal in meals %}
-<tr><td>{{ meal.id }}. {{ meal.name|capitalize }}</td></tr><br>
+    <li>{{ meal.id }}. {{ meal.name|capitalize }}</li>
 {% endfor %}
-    </form>
+</ol>
 </body>
+</html>

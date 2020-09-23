@@ -1,0 +1,25 @@
+{% extends "bboard/base_bboard.html" %}
+{% block title %}
+    Добавить объявление
+{% endblock title %}
+
+{% block content %}
+<div class="row">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="title">Заголовок</label>
+          <input type="text" class="form-control" name="title" id="title" placeholder="Введите текст">
+        </div>
+        <div class="form-group">
+          <label for="text">Текст:</label>
+          <textarea class="form-control" name="text" id="text" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="phone">Телефон:</label>
+          <input type="text" class="form-control" name="phone" id="phone"  placeholder="+79999999999">
+        </div>
+        <button type="submit" class="btn btn-primary">Добавить</button>
+    </form>
+</div>
+{% endblock content %}

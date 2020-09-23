@@ -1,0 +1,23 @@
+{% extends "bboard/base_bboard.html" %}
+
+{% block title %}
+    Список объявлений
+{% endblock title %}
+
+{% block content %}
+<div class="row">
+    {% for advert in adverts %}
+    <div class="col-md-4">
+    <div class="card">
+        <div class="card-body">
+        <h3 class="card-title">{{ advert.title }}</h3>
+        <p class="card-text">{{ advert.text }}</p>
+        <p class="card-text">{{ advert.phone }}</p>
+        <p class="card-text">Дата: {{ advert.created_at|date:"d.m.Y" }}</p>
+        </div>
+    </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
+

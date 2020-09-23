@@ -26,7 +26,7 @@ class HomeNews(ListView):
         #специальный метод
     def get_queryset(self):
     #   правим наш запрос , используя метод фильтр и получаем те данные которые нужны
-        return News.objects.filter('is_published=True')
+        return News.objects.filter(is_published=True)
 
 #создаем класс , под клас класса ListView
 class NewsByCategory(ListView):
